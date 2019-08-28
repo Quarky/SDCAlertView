@@ -22,7 +22,7 @@ public enum ActionLayout: Int {
 }
 
 @objc(SDCAlertController)
-public final class AlertController: UIViewController {
+public final class SDCAlertController: UIViewController {
     private var verticalCenter: NSLayoutConstraint?
     /// The alert's title. Directly uses `attributedTitle` without any attributes.
     override public var title: String? {
@@ -56,14 +56,14 @@ public final class AlertController: UIViewController {
     }
     /// The alert's actions (buttons).
     @objc
-    private(set) public var actions = [AlertAction]() {
+    private(set) public var actions = [SDCAlertAction]() {
         didSet { self.alert.actions = self.actions }
     }
     /// The alert's preferred action, if one is set. Setting this value to an action that wasn't already added
     /// to the array will add it and override its style to `.preferred`. Setting this value to `nil` will
     /// remove the preferred style from all actions.
     @objc
-    public var preferredAction: AlertAction? {
+    public var preferredAction: SDCAlertAction? {
         get {
             if self.preferredStyle == .actionSheet {
                 return nil
@@ -85,8 +85,8 @@ public final class AlertController: UIViewController {
     /// The layout of the actions in the alert, or `.automatic` for action sheets.
     @objc
     public var actionLayout: ActionLayout {
-        get { return (self.alert as? AlertView)?.actionLayout ?? .automatic }
-        set { (self.alert as? AlertView)?.actionLayout = newValue }
+        get { return (self.alert as? SDCAlertView)?.actionLayout ?? .automatic }
+        set { (self.alert as? SDCAlertView)?.actionLayout = newValue }
     }
     /// The text fields that are added to the alert. Does nothing when used with an action sheet.
     @objc
@@ -96,7 +96,7 @@ public final class AlertController: UIViewController {
     /// A closure that, when set, returns whether the alert or action sheet should dismiss after the user taps
     /// on an action. If it returns false, the AlertAction handler will not be executed.
     @objc
-    public var shouldDismissHandler: ((AlertAction?) -> Bool)?
+    public var shouldDismissHandler: ((SDCAlertAction?) -> Bool)?
     /// A closure called when the alert is dismissed after an outside tap (when `dismissOnOutsideTap` behavior
     /// is enabled)
     @objc
@@ -107,7 +107,7 @@ public final class AlertController: UIViewController {
     /// The alert's presentation style.
     @objc
     public let preferredStyle: AlertControllerStyle
-    private let alert: UIView & AlertControllerViewRepresentable
+    private let alert: UIView & SDCAlertControllerViewRepresentable
     private lazy var transitionStyle: Transition = Transition(alertStyle: self.preferredStyle)
     // MARK: - Initialization
     /// Create an alert with an stylized title and message. If no styles are necessary, consider using
@@ -140,14 +140,14 @@ public final class AlertController: UIViewController {
     private init(preferredStyle: AlertControllerStyle) {
         switch preferredStyle {
         case .alert:
-            self.alert = AlertView()
+            self.alert = SDCAlertView()
         case .actionSheet:
-            let nibName = String(describing: ActionSheetView.self)
+            let nibName = String(describing: SDCActionSheetView.self)
             let objects = Bundle.resourceBundle.loadNibNamed(nibName, owner: nil, options: nil)
-            if let actionSheet = objects?.first as? ActionSheetView {
+            if let actionSheet = objects?.first as? SDCActionSheetView {
                 self.alert = actionSheet
             } else {
-                self.alert = AlertView()
+                self.alert = SDCAlertView()
             }
         }
         self.preferredStyle = preferredStyle
@@ -173,7 +173,7 @@ public final class AlertController: UIViewController {
     ///
     /// - parameter action: The action to add.
     @objc
-    public func addAction(_ action: AlertAction) {
+    public func addAction(_ action: SDCAlertAction) {
         self.actions.append(action)
     }
     /// Adds a text field to the alert.
@@ -297,7 +297,7 @@ public final class AlertController: UIViewController {
         }
     }
     private func addTextFieldsIfNecessary() {
-        guard let textFields = self.textFields, let alert = self.alert as? AlertView else {
+        guard let textFields = self.textFields, let alert = self.alert as? SDCAlertView else {
             return
         }
         let textFieldsViewController = TextFieldsViewController(textFields: textFields)

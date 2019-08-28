@@ -3,7 +3,7 @@ import UIKit
 let kHorizontalActionSeparator = "horizontal"
 let kVerticalActionSeparator = "vertical"
 
-final class ActionsCollectionViewFlowLayout: UICollectionViewFlowLayout {
+final class SDCActionsCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     var visualStyle: AlertVisualStyle?
 

@@ -1,4 +1,4 @@
-extension AlertController {
+extension SDCAlertController {
     /// Convenience method to quickly display a basic alert.
     ///
     /// - parameter title:       An optional title for the alert.
@@ -10,9 +10,9 @@ extension AlertController {
     @objc
     @discardableResult
     public static func alert(withTitle title: String? = nil, message: String? = nil,
-                             actionTitle: String? = nil, customView: UIView? = nil) -> AlertController {
-        let alertController = AlertController(title: title, message: message)
-        alertController.addAction(AlertAction(title: actionTitle, style: .preferred))
+                             actionTitle: String? = nil, customView: UIView? = nil) -> SDCAlertController {
+        let alertController = SDCAlertController(title: title, message: message)
+        alertController.addAction(SDCAlertAction(title: actionTitle, style: .preferred))
 
         if let customView = customView {
             alertController.contentView.addSubview(customView)
@@ -32,9 +32,9 @@ extension AlertController {
     @objc
     @discardableResult
     public static func sheet(withTitle title: String? = nil, message: String? = nil, actions: [String])
-        -> AlertController {
-        let alertController = AlertController(title: title, message: message, preferredStyle: .actionSheet)
-        actions.forEach { alertController.addAction(AlertAction(title: $0, style: .normal)) }
+        -> SDCAlertController {
+        let alertController = SDCAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        actions.forEach { alertController.addAction(SDCAlertAction(title: $0, style: .normal)) }
         alertController.present()
         return alertController
     }
@@ -46,9 +46,9 @@ extension AlertController {
     ///
     /// - returns: The action sheet that was presented.
     @objc
-    public static func sheet(with view: UIView, actions: [String]) -> AlertController {
-        let alertController = AlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actions.forEach { alertController.addAction(AlertAction(title: $0, style: .normal)) }
+    public static func sheet(with view: UIView, actions: [String]) -> SDCAlertController {
+        let alertController = SDCAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actions.forEach { alertController.addAction(SDCAlertAction(title: $0, style: .normal)) }
         alertController.contentView.addSubview(view)
         alertController.present()
         return alertController

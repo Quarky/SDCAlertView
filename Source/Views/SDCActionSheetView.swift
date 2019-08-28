@@ -1,7 +1,7 @@
-final class ActionSheetView: UIView, AlertControllerViewRepresentable {
-    @IBOutlet var titleLabel: AlertLabel!
-    @IBOutlet var messageLabel: AlertLabel!
-    @IBOutlet var actionsCollectionView: ActionsCollectionView!
+final class SDCActionSheetView: UIView, SDCAlertControllerViewRepresentable {
+    @IBOutlet var titleLabel: SDCAlertLabel!
+    @IBOutlet var messageLabel: SDCAlertLabel!
+    @IBOutlet var actionsCollectionView: SDCActionsCollectionView!
     @IBOutlet var contentView: UIView!
     @IBOutlet private var primaryView: UIView!
     @IBOutlet private var labelsContainer: UIView!
@@ -12,15 +12,15 @@ final class ActionSheetView: UIView, AlertControllerViewRepresentable {
     @IBOutlet private var cancelHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var paddingView: UIView!
 
-    var actions: [AlertAction] = []
+    var actions: [SDCAlertAction] = []
 
-    var actionTappedHandler: ((AlertAction) -> Void)? {
+    var actionTappedHandler: ((SDCAlertAction) -> Void)? {
         didSet { self.actionsCollectionView.actionTapped = self.actionTappedHandler }
     }
 
     var visualStyle: AlertVisualStyle!
 
-    private var cancelAction: AlertAction? {
+    private var cancelAction: SDCAlertAction? {
         didSet { self.cancelLabel.attributedText = self.cancelAction?.attributedTitle }
     }
 

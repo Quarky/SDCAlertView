@@ -1,9 +1,9 @@
-final class AlertView: UIView, AlertControllerViewRepresentable {
-    var titleLabel: AlertLabel! = AlertLabel()
-    var messageLabel: AlertLabel! = AlertLabel()
-    var actionsCollectionView: ActionsCollectionView! = ActionsCollectionView()
+final class SDCAlertView: UIView, SDCAlertControllerViewRepresentable {
+    var titleLabel: SDCAlertLabel! = SDCAlertLabel()
+    var messageLabel: SDCAlertLabel! = SDCAlertLabel()
+    var actionsCollectionView: SDCActionsCollectionView! = SDCActionsCollectionView()
     var contentView: UIView! = UIView()
-    var actions: [AlertAction] = []
+    var actions: [SDCAlertAction] = []
     var actionLayout = ActionLayout.automatic
 
     var textFieldsViewController: TextFieldsViewController? {
@@ -14,7 +14,7 @@ final class AlertView: UIView, AlertControllerViewRepresentable {
         didSet { self.textFieldsViewController?.visualStyle = self.visualStyle }
     }
 
-    var actionTappedHandler: ((AlertAction) -> Void)? {
+    var actionTappedHandler: ((SDCAlertAction) -> Void)? {
         get { return self.actionsCollectionView.actionTapped }
         set { self.actionsCollectionView.actionTapped = newValue }
     }

@@ -24,7 +24,7 @@ final class DemoViewController: UITableViewController {
         let title = self.titleTextField.content
         let message = self.messageTextField.content
         let style = AlertControllerStyle(rawValue: self.styleControl.selectedSegmentIndex)!
-        let alert = AlertController(title: title, message: message, preferredStyle: style)
+        let alert = SDCAlertController(title: title, message: message, preferredStyle: style)
 
         let textFields = Int(self.textFieldCountTextField.content ?? "0")!
         for _ in 0..<textFields {
@@ -34,13 +34,13 @@ final class DemoViewController: UITableViewController {
         let buttons = Int(self.buttonCountTextField.content ?? "0")!
         for i in 0..<buttons {
             if i == 0 {
-                alert.addAction(AlertAction(title: "Cancel", style: .preferred))
+                alert.addAction(SDCAlertAction(title: "Cancel", style: .preferred))
             } else if i == 1 {
-                alert.addAction(AlertAction(title: "OK", style: .normal))
+                alert.addAction(SDCAlertAction(title: "OK", style: .normal))
             } else if i == 2 {
-                alert.addAction(AlertAction(title: "Delete", style: .destructive))
+                alert.addAction(SDCAlertAction(title: "Delete", style: .destructive))
             } else {
-                alert.addAction(AlertAction(title: "Button \(i)", style: .normal))
+                alert.addAction(SDCAlertAction(title: "Button \(i)", style: .normal))
             }
         }
 
@@ -49,7 +49,7 @@ final class DemoViewController: UITableViewController {
         alert.present()
     }
 
-    private func addContentToAlert(_ alert: AlertController) {
+    private func addContentToAlert(_ alert: SDCAlertController) {
         switch self.contentControl.selectedSegmentIndex {
             case 1:
                 let contentView = alert.contentView

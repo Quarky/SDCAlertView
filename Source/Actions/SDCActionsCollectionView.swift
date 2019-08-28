@@ -2,13 +2,13 @@ import UIKit
 
 private let kActionCellIdentifier = "actionCell"
 
-class ActionsCollectionView: UICollectionView {
+class SDCActionsCollectionView: UICollectionView {
 
-    var actions: [AlertAction] = []
+    var actions: [SDCAlertAction] = []
 
     var visualStyle: AlertVisualStyle! {
         didSet {
-            guard let layout = self.collectionViewLayout as? ActionsCollectionViewFlowLayout else {
+            guard let layout = self.collectionViewLayout as? SDCActionsCollectionViewFlowLayout else {
                 return
             }
 
@@ -17,7 +17,7 @@ class ActionsCollectionView: UICollectionView {
     }
 
     var displayHeight: CGFloat {
-        guard let layout = self.collectionViewLayout as? ActionsCollectionViewFlowLayout,
+        guard let layout = self.collectionViewLayout as? SDCActionsCollectionViewFlowLayout,
             let visualStyle = self.visualStyle else {
                 return -1
         }
@@ -29,12 +29,12 @@ class ActionsCollectionView: UICollectionView {
         }
     }
 
-    var actionTapped: ((AlertAction) -> Void)?
+    var actionTapped: ((SDCAlertAction) -> Void)?
 
     private var highlightedCell: UICollectionViewCell?
 
     init() {
-        super.init(frame: .zero, collectionViewLayout: ActionsCollectionViewFlowLayout())
+        super.init(frame: .zero, collectionViewLayout: SDCActionsCollectionViewFlowLayout())
         self.dataSource = self
         self.delegate = self
         self.backgroundColor = .clear
@@ -46,7 +46,7 @@ class ActionsCollectionView: UICollectionView {
         self.collectionViewLayout.register(ActionSeparatorView.self,
             forDecorationViewOfKind: kVerticalActionSeparator)
 
-        let nibName = String(describing: ActionCell.self)
+        let nibName = String(describing: SDCActionCell.self)
         let nib = UINib(nibName: nibName, bundle: Bundle.resourceBundle)
         self.register(nib, forCellWithReuseIdentifier: kActionCellIdentifier)
     }
@@ -89,7 +89,7 @@ class ActionsCollectionView: UICollectionView {
     }
 }
 
-extension ActionsCollectionView: UICollectionViewDataSource {
+extension SDCActionsCollectionView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.actions.count
@@ -98,14 +98,14 @@ extension ActionsCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
         -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kActionCellIdentifier,
-            for: indexPath) as? ActionCell
+            for: indexPath) as? SDCActionCell
         let action = self.actions[(indexPath as NSIndexPath).item]
         cell?.set(action, with: self.visualStyle)
         return cell!
     }
 }
 
-extension ActionsCollectionView: UICollectionViewDelegateFlowLayout {
+extension SDCActionsCollectionView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

@@ -1,6 +1,6 @@
 import UIKit
 
-final class ActionCell: UICollectionViewCell {
+final class SDCActionCell: UICollectionViewCell {
 
     @IBOutlet private(set) var titleLabel: UILabel!
     @IBOutlet private var highlightedBackgroundView: UIView!
@@ -14,7 +14,7 @@ final class ActionCell: UICollectionViewCell {
         didSet { self.highlightedBackgroundView.isHidden = !self.isHighlighted }
     }
 
-    func set(_ action: AlertAction, with visualStyle: AlertVisualStyle) {
+    func set(_ action: SDCAlertAction, with visualStyle: AlertVisualStyle) {
         action.actionView = self
 
         self.titleLabel.font = visualStyle.font(for: action)
