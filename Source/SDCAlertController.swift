@@ -22,7 +22,7 @@ public enum ActionLayout: Int {
 }
 
 @objc(SDCAlertController)
-public final class SDCAlertController: UIViewController {
+open class SDCAlertController: UIViewController {
     private var verticalCenter: NSLayoutConstraint?
     /// The alert's title. Directly uses `attributedTitle` without any attributes.
     override public var title: String? {
